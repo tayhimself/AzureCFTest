@@ -2,6 +2,14 @@
   "scriptFile": "__init__.py",
   "bindings": [
     {
+      "name": "message",
+      "type": "table",
+      "tableName": "mytesttable",
+      "partitionKey": "message",
+      "connection": "AzureWebJobsStorage",
+      "direction": "out"
+    },
+    {
       "authLevel": "function",
       "type": "httpTrigger",
       "direction": "in",

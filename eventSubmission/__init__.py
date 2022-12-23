@@ -1,9 +1,10 @@
 import logging
-
+import uuid
+import json
 import azure.functions as func
 
 
-def main(req: func.HttpRequest, msg:func.Out[func.QueueMessage]) -> str:
+def main(req: func.HttpRequest, msg:func.Out[func.QueueMessage], message: func.Out[str]) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
     name = req.params.get('name')
@@ -17,6 +18,14 @@ def main(req: func.HttpRequest, msg:func.Out[func.QueueMessage]) -> str:
 
     if name:
         msg.set(name)
+        rowKey = str(uuid.uuid4())
+        data = {
+            "Name": "Output binding message",
+            "PartitionKey": "message",
+            "RowKey": rowKey
+        }
+        message.set(json.dumps(data))
+
         return func.HttpResponse(f"Hello, {name}.")
     else:
         return func.HttpResponse(
