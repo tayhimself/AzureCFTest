@@ -1,14 +1,7 @@
 {
   "scriptFile": "__init__.py",
   "bindings": [
-    {
-      "name": "message",
-      "type": "table",
-      "tableName": "mytesttable",
-      "partitionKey": "message",
-      "connection": "AzureWebJobsStorage",
-      "direction": "out"
-    },
+
     {
       "authLevel": "function",
       "type": "httpTrigger",
@@ -23,6 +16,15 @@
       "type": "http",
       "direction": "out",
       "name": "$return"
+    },
+    {
+      "name": "message",
+      "type": "table",
+      "tableName": "mytesttable",
+      "partitionKey": "mytesttable",
+      "rowKey": "{rand-guid}",
+      "connection": "AzureWebJobsStorage",
+      "direction": "out"
     },
     {
       "type": "queue",
